@@ -1,6 +1,5 @@
 import React, { useMemo, useState } from "react";
 
-
 /** Адаптивная графика: SVG-иконки (не картинками, а вектором) */
 function IconTelegram(props) {
     return (
@@ -9,6 +8,7 @@ function IconTelegram(props) {
         </svg>
     );
 }
+
 function IconInstagram(props) {
     return (
         <svg viewBox="0 0 24 24" aria-hidden="true" {...props}>
@@ -26,15 +26,19 @@ const NAV = [
     { href: "#contacts", label: "Контакты" },
 ];
 
-const GALLERY = [
-    { id: 1, src: "../public/works/Art1.jpg", alt: "Работа 1" },
-    { id: 2, src: "../public/works/Art2.jpg", alt: "Работа 2" },
-    { id: 3, src: "../public/works/Art3.jpg", alt: "Работа 3" },
-    { id: 4, src: "../public/works/Art4.jpg", alt: "Работа 4" },
-    { id: 5, src: "../public/works/Art5.jpg", alt: "Работа 5" },
-];
-
 export default function App() {
+    // ✅ База для GitHub Pages (учитывает base в vite.config.js)
+    const BASE = import.meta.env.BASE_URL;
+
+    // ✅ Правильные пути к картинкам из папки public/
+    const GALLERY = [
+        { id: 1, src: `${BASE}works/Art1.jpg`, alt: "Работа 1" },
+        { id: 2, src: `${BASE}works/Art2.jpg`, alt: "Работа 2" },
+        { id: 3, src: `${BASE}works/Art3.jpg`, alt: "Работа 3" },
+        { id: 4, src: `${BASE}works/Art4.jpg`, alt: "Работа 4" },
+        { id: 5, src: `${BASE}works/Art5.jpg`, alt: "Работа 5" },
+    ];
+
     const [menuOpen, setMenuOpen] = useState(false);
 
     const [form, setForm] = useState({
@@ -44,6 +48,7 @@ export default function App() {
     });
     const [errors, setErrors] = useState({ email: "" });
     const [activeImg, setActiveImg] = useState(null);
+
     const canSubmit = useMemo(() => {
         return (
             form.name.trim().length > 0 &&
@@ -60,17 +65,20 @@ export default function App() {
         if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
         setMenuOpen(false);
     };
+
     const validateEmail = (value) => {
         // Требование: проверка на наличие "@"
         if (!value.includes("@")) return "Email должен содержать символ @";
         return "";
     };
+
     const onChange = (key, value) => {
         setForm((p) => ({ ...p, [key]: value }));
         if (key === "email") {
             setErrors((p) => ({ ...p, email: validateEmail(value) }));
         }
     };
+
     const onSubmit = (e) => {
         e.preventDefault();
         const emailErr = validateEmail(form.email);
@@ -90,7 +98,7 @@ export default function App() {
     }, []);
 
     return (
-        <div className="page" >
+        <div className="page">
             <header className="header">
                 <a className="brand" href="#home" onClick={(e) => onNavClick(e, "#home")}>
                     <span className="brandMark" aria-hidden="true" />
@@ -150,17 +158,29 @@ export default function App() {
                             <span className="h1sub">живопись, графика, портреты</span>
                         </h1>
 
-                        {/* Текст 300+ символов (не “рыба”, осмысленный) */}
                         <p className="lead">
-                            Я цифровой художник, создающий работы на стыке реальности и воображения. Специализируюсь на иллюстрациях и скетчах, в которых каждая деталь дышит, а цвет передает историю. Люблю работать с фактурой — будь то шероховатость старой стены, мягкость ткани или игра света на стекле.
-                            Беру заказы на портреты (от камерных до сказочных), интерьерные работы (арт-объекты для вашего пространства) и книжную иллюстрацию. Предпочитаю рисовать с эскиза, чтобы вместе с вами поймать идею с самого начала. Помогу выбрать идеальный формат, палитру и настроение, превращая ваш запрос в уникальное визуальное высказывание.
+                            Я цифровой художник, создающий работы на стыке реальности и
+                            воображения. Специализируюсь на иллюстрациях и скетчах, в которых
+                            каждая деталь дышит, а цвет передает историю. Люблю работать с
+                            фактурой — будь то шероховатость старой стены, мягкость ткани или
+                            игра света на стекле. Беру заказы на портреты, интерьерные работы и
+                            книжную иллюстрацию. Предпочитаю рисовать с эскиза, чтобы вместе с
+                            вами поймать идею с самого начала.
                         </p>
 
                         <div className="actions">
-                            <a className="btn btnPrimary" href="#portfolio" onClick={(e) => onNavClick(e, "#portfolio")}>
+                            <a
+                                className="btn btnPrimary"
+                                href="#portfolio"
+                                onClick={(e) => onNavClick(e, "#portfolio")}
+                            >
                                 Портфолио
                             </a>
-                            <a className="btn" href="#contacts" onClick={(e) => onNavClick(e, "#contacts")}>
+                            <a
+                                className="btn"
+                                href="#contacts"
+                                onClick={(e) => onNavClick(e, "#contacts")}
+                            >
                                 Связаться
                             </a>
                         </div>
@@ -172,11 +192,11 @@ export default function App() {
                             </div>
                             <div className="fact">
                                 <div className="factK">Форматы</div>
-                                <div className="factV">По договоренности с заказчиком</div>
+                                <div className="factV">По договоренности</div>
                             </div>
                             <div className="fact">
                                 <div className="factK">Материалы</div>
-                                <div className="factV">холст, бумага, оцифрованная копия</div>
+                                <div className="factV">холст, бумага, цифровой файл</div>
                             </div>
                         </div>
                     </div>
@@ -184,13 +204,11 @@ export default function App() {
                     <div className="heroPhotoCard">
                         <img
                             className="heroPhoto"
-                            src="../public/other/myMain.jfif"
+                            src={`${BASE}other/myMain.jfif`}
                             alt="Кретова А.А."
                             loading="eager"
                         />
-                        <div className="heroPhotoCap">
-
-                        </div>
+                        <div className="heroPhotoCap" />
                     </div>
                 </div>
             </section>
@@ -203,9 +221,9 @@ export default function App() {
                         <div className="card">
                             <h3 className="h3">Чем занимаюсь</h3>
                             <p className="muted">
-                                Я рассматриваю заказ как соавторство. Ваше видение и задачи — отправная точка.
-                                Отталкиваясь от них, я предлагаю художественные решения, исследую с вами разные пути в композиции и цвете.
-                                Этот процесс гарантирует, что итоговая работа не будет случайной — она будет нести в себе и вашу историю, и профессиональное воплощение.
+                                Я рассматриваю заказ как соавторство. Ваше видение и задачи —
+                                отправная точка. Отталкиваясь от них, я предлагаю художественные
+                                решения, исследую с вами разные пути в композиции и цвете.
                             </p>
                         </div>
                         <div className="card">
@@ -214,7 +232,7 @@ export default function App() {
                                 <li>Обсуждение идеи, референсы, формат</li>
                                 <li>Эскиз и согласование</li>
                                 <li>Работа над финалом + фото процесса (по желанию)</li>
-                                <li>Упаковка и доставка/передача</li>
+                                <li>Упаковка и передача</li>
                             </ol>
                         </div>
                     </div>
@@ -225,26 +243,22 @@ export default function App() {
             <section id="portfolio" className="section">
                 <div className="container">
                     <h2 className="h2">Портфолио</h2>
-                    <p className="muted">
-
-                    </p>
 
                     <div className="gallery">
                         {GALLERY.map((img) => (
                             <figure className="tile" key={img.id}>
                                 <img
-                                     src={img.src}
-                                     alt={img.alt}
-                                     loading="lazy"
-                                     onClick={() => setActiveImg(img)}
-                                     aria-label={`Открыть: ${img.alt}`} />
+                                    src={img.src}
+                                    alt={img.alt}
+                                    loading="lazy"
+                                    onClick={() => setActiveImg(img)}
+                                />
                                 <figcaption>{img.alt}</figcaption>
                             </figure>
                         ))}
                     </div>
                 </div>
             </section>
-
 
             {/* Контакты + форма */}
             <section id="contacts" className="section">
@@ -261,7 +275,9 @@ export default function App() {
                             </div>
                             <div className="contactLine">
                                 <span className="muted">Email:</span>{" "}
-                                    <a href="mailto:kretova.arisha@mail.ru">kretova.arisha@mail.ru</a>
+                                <a href="mailto:kretova.arisha@mail.ru">
+                                    kretova.arisha@mail.ru
+                                </a>
                             </div>
 
                             <div className="socials" aria-label="Соцсети">
@@ -275,11 +291,21 @@ export default function App() {
                                     <IconTelegram className="icon" />
                                     Telegram
                                 </a>
+
+                                {/* если нужно 2 соцсети — раскомментируй и вставь ссылку */}
+                                {/*
+                <a
+                  className="socialBtn"
+                  href="https://instagram.com/username"
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="Instagram"
+                >
+                  <IconInstagram className="icon" />
+                  Instagram
+                </a>
+                */}
                             </div>
-
-                            <p className="muted small">
-
-                            </p>
                         </div>
 
                         <form className="card form" onSubmit={onSubmit}>
@@ -323,7 +349,7 @@ export default function App() {
                             </button>
 
                             <p className="muted small">
-
+                                Проверка email: обязательно наличие символа <b>@</b>.
                             </p>
                         </form>
                     </div>
@@ -342,11 +368,21 @@ export default function App() {
                 </div>
             </footer>
 
-            {/* Для картинок */}
+            {/* Lightbox */}
             {activeImg && (
-                <div className="lightbox" onMouseDown={() => setActiveImg(null)} role="dialog" aria-modal="true">
+                <div
+                    className="lightbox"
+                    onMouseDown={() => setActiveImg(null)}
+                    role="dialog"
+                    aria-modal="true"
+                >
                     <div className="lightboxCard" onMouseDown={(e) => e.stopPropagation()}>
-                        <button className="lightboxClose" type="button" onClick={() => setActiveImg(null)} aria-label="Закрыть">
+                        <button
+                            className="lightboxClose"
+                            type="button"
+                            onClick={() => setActiveImg(null)}
+                            aria-label="Закрыть"
+                        >
                             ✕
                         </button>
 
@@ -355,8 +391,6 @@ export default function App() {
                     </div>
                 </div>
             )}
-
-
         </div>
     );
 }
