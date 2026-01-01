@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react";
 
-/** Адаптивная графика: SVG-иконки (не картинками, а вектором) */
+
 function IconTelegram(props) {
     return (
         <svg viewBox="0 0 24 24" aria-hidden="true" {...props}>
@@ -27,10 +27,10 @@ const NAV = [
 ];
 
 export default function App() {
-    // ✅ База для GitHub Pages (учитывает base в vite.config.js)
+
     const BASE = import.meta.env.BASE_URL;
 
-    // ✅ Правильные пути к картинкам из папки public/
+
     const GALLERY = [
         { id: 1, src: `${BASE}works/Art1.jpg`, alt: "Работа 1" },
         { id: 2, src: `${BASE}works/Art2.jpg`, alt: "Работа 2" },
@@ -67,7 +67,6 @@ export default function App() {
     };
 
     const validateEmail = (value) => {
-        // Требование: проверка на наличие "@"
         if (!value.includes("@")) return "Email должен содержать символ @";
         return "";
     };
@@ -291,20 +290,6 @@ export default function App() {
                                     <IconTelegram className="icon" />
                                     Telegram
                                 </a>
-
-                                {/* если нужно 2 соцсети — раскомментируй и вставь ссылку */}
-                                {/*
-                <a
-                  className="socialBtn"
-                  href="https://instagram.com/username"
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="Instagram"
-                >
-                  <IconInstagram className="icon" />
-                  Instagram
-                </a>
-                */}
                             </div>
                         </div>
 
@@ -347,10 +332,6 @@ export default function App() {
                             <button className="btn btnPrimary" type="submit" disabled={!canSubmit}>
                                 Отправить
                             </button>
-
-                            <p className="muted small">
-                                Проверка email: обязательно наличие символа <b>@</b>.
-                            </p>
                         </form>
                     </div>
                 </div>
